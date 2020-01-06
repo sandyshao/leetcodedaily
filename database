@@ -1,0 +1,150 @@
+#614
+In facebook, there is a follow table with two columns: followee, follower.
+
+Please write a sql query to get the amount of each follower’s follower if he/she has one.
+
+For example:
+
++-------------+------------+
+| followee    | follower   |
++-------------+------------+
+|     A       |     B      |
+|     B       |     C      |
+|     B       |     D      |
+|     D       |     E      |
++-------------+------------+
+should output:
++-------------+------------+
+| follower    | num        |
++-------------+------------+
+|     B       |  2         |
+|     D       |  1         |
++-------------+------------+
+Explaination:
+Both B and D exist in the follower list, when as a followee, B's follower is C and D, and D's follower is E. A does not exist in follower list.
+==========================================================================================================================================
+ #615
+ Given two tables as below, write a query to display the comparison result (higher/lower/same) of the average salary of employees in a department to the company's average salary.
+ 
+
+Table: salary
+| id | employee_id | amount | pay_date   |
+|----|-------------|--------|------------|
+| 1  | 1           | 9000   | 2017-03-31 |
+| 2  | 2           | 6000   | 2017-03-31 |
+| 3  | 3           | 10000  | 2017-03-31 |
+| 4  | 1           | 7000   | 2017-02-28 |
+| 5  | 2           | 6000   | 2017-02-28 |
+| 6  | 3           | 8000   | 2017-02-28 |
+ 
+
+The employee_id column refers to the employee_id in the following table employee.
+ 
+
+| employee_id | department_id |
+|-------------|---------------|
+| 1           | 1             |
+| 2           | 2             |
+| 3           | 2             |
+ 
+
+So for the sample data above, the result is:
+ 
+
+| pay_month | department_id | comparison  |
+|-----------|---------------|-------------|
+| 2017-03   | 1             | higher      |
+| 2017-03   | 2             | lower       |
+| 2017-02   | 1             | same        |
+| 2017-02   | 2             | same        |
+ 
+
+Explanation
+ 
+
+In March, the company's average salary is (9000+6000+10000)/3 = 8333.33...
+ 
+
+The average salary for department '1' is 9000, which is the salary of employee_id '1' since there is only one employee in this department. So the comparison result is 'higher' since 9000 > 8333.33 obviously.
+ 
+
+The average salary of department '2' is (6000 + 10000)/2 = 8000, which is the average of employee_id '2' and '3'. So the comparison result is 'lower' since 8000 < 8333.33.
+ 
+
+With he same formula for the average salary comparison in February, the result is 'same' since both the department '1' and '2' have the same average salary with the company, which is 7000.
+
+==========================================================================================================================================
+#618
+A U.S graduate school has students from Asia, Europe and America. The students' location information are stored in table student as below.
+ 
+
+| name   | continent |
+|--------|-----------|
+| Jack   | America   |
+| Pascal | Europe    |
+| Xi     | Asia      |
+| Jane   | America   |
+ 
+
+Pivot the continent column in this table so that each name is sorted alphabetically and displayed underneath its corresponding continent. The output headers should be America, Asia and Europe respectively. It is guaranteed that the student number from America is no less than either Asia or Europe.
+ 
+
+For the sample input, the output is:
+ 
+
+| America | Asia | Europe |
+|---------|------|--------|
+| Jack    | Xi   | Pascal |
+| Jane    |      |        |
+==========================================================================================================================================
+#1045
+Table: Customer
+
++-------------+---------+
+| Column Name | Type    |
++-------------+---------+
+| customer_id | int     |
+| product_key | int     |
++-------------+---------+
+product_key is a foreign key to Product table.
+Table: Product
+
++-------------+---------+
+| Column Name | Type    |
++-------------+---------+
+| product_key | int     |
++-------------+---------+
+product_key is the primary key column for this table.
+ 
+
+Write an SQL query for a report that provides the customer ids from the Customer table that bought all the products in the Product table.
+
+For example:
+
+Customer table:
++-------------+-------------+
+| customer_id | product_key |
++-------------+-------------+
+| 1           | 5           |
+| 2           | 6           |
+| 3           | 5           |
+| 3           | 6           |
+| 1           | 6           |
++-------------+-------------+
+
+Product table:
++-------------+
+| product_key |
++-------------+
+| 5           |
+| 6           |
++-------------+
+
+Result table:
++-------------+
+| customer_id |
++-------------+
+| 1           |
+| 3           |
++-------------+
+The customers who bought all the products (5 and 6) are customers with id 1 and 3.

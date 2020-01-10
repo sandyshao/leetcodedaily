@@ -1,0 +1,516 @@
+#614
+In facebook, there is a follow table with two columns: followee, follower.
+
+Please write a sql query to get the amount of each follower’s follower if he/she has one.
+
+For example:
+
++-------------+------------+
+| followee    | follower   |
++-------------+------------+
+|     A       |     B      |
+|     B       |     C      |
+|     B       |     D      |
+|     D       |     E      |
++-------------+------------+
+should output:
++-------------+------------+
+| follower    | num        |
++-------------+------------+
+|     B       |  2         |
+|     D       |  1         |
++-------------+------------+
+Explaination:
+Both B and D exist in the follower list, when as a followee, B's follower is C and D, and D's follower is E. A does not exist in follower list.
+==========================================================================================================================================
+ #615
+ Given two tables as below, write a query to display the comparison result (higher/lower/same) of the average salary of employees in a department to the company's average salary.
+ 
+
+Table: salary
+| id | employee_id | amount | pay_date   |
+|----|-------------|--------|------------|
+| 1  | 1           | 9000   | 2017-03-31 |
+| 2  | 2           | 6000   | 2017-03-31 |
+| 3  | 3           | 10000  | 2017-03-31 |
+| 4  | 1           | 7000   | 2017-02-28 |
+| 5  | 2           | 6000   | 2017-02-28 |
+| 6  | 3           | 8000   | 2017-02-28 |
+ 
+
+The employee_id column refers to the employee_id in the following table employee.
+ 
+
+| employee_id | department_id |
+|-------------|---------------|
+| 1           | 1             |
+| 2           | 2             |
+| 3           | 2             |
+ 
+
+So for the sample data above, the result is:
+ 
+
+| pay_month | department_id | comparison  |
+|-----------|---------------|-------------|
+| 2017-03   | 1             | higher      |
+| 2017-03   | 2             | lower       |
+| 2017-02   | 1             | same        |
+| 2017-02   | 2             | same        |
+ 
+
+Explanation
+ 
+
+In March, the company's average salary is (9000+6000+10000)/3 = 8333.33...
+ 
+
+The average salary for department '1' is 9000, which is the salary of employee_id '1' since there is only one employee in this department. So the comparison result is 'higher' since 9000 > 8333.33 obviously.
+ 
+
+The average salary of department '2' is (6000 + 10000)/2 = 8000, which is the average of employee_id '2' and '3'. So the comparison result is 'lower' since 8000 < 8333.33.
+ 
+
+With he same formula for the average salary comparison in February, the result is 'same' since both the department '1' and '2' have the same average salary with the company, which is 7000.
+
+==========================================================================================================================================
+#618
+A U.S graduate school has students from Asia, Europe and America. The students' location information are stored in table student as below.
+ 
+
+| name   | continent |
+|--------|-----------|
+| Jack   | America   |
+| Pascal | Europe    |
+| Xi     | Asia      |
+| Jane   | America   |
+ 
+
+Pivot the continent column in this table so that each name is sorted alphabetically and displayed underneath its corresponding continent. The output headers should be America, Asia and Europe respectively. It is guaranteed that the student number from America is no less than either Asia or Europe.
+ 
+
+For the sample input, the output is:
+ 
+
+| America | Asia | Europe |
+|---------|------|--------|
+| Jack    | Xi   | Pascal |
+| Jane    |      |        |
+==========================================================================================================================================
+#1045
+Table: Customer
+
++-------------+---------+
+| Column Name | Type    |
++-------------+---------+
+| customer_id | int     |
+| product_key | int     |
++-------------+---------+
+product_key is a foreign key to Product table.
+Table: Product
+
++-------------+---------+
+| Column Name | Type    |
++-------------+---------+
+| product_key | int     |
++-------------+---------+
+product_key is the primary key column for this table.
+ 
+
+Write an SQL query for a report that provides the customer ids from the Customer table that bought all the products in the Product table.
+
+For example:
+
+Customer table:
++-------------+-------------+
+| customer_id | product_key |
++-------------+-------------+
+| 1           | 5           |
+| 2           | 6           |
+| 3           | 5           |
+| 3           | 6           |
+| 1           | 6           |
++-------------+-------------+
+
+Product table:
++-------------+
+| product_key |
++-------------+
+| 5           |
+| 6           |
++-------------+
+
+Result table:
++-------------+
+| customer_id |
++-------------+
+| 1           |
+| 3           |
++-------------+
+The customers who bought all the products (5 and 6) are customers with id 1 and 3.
+==========================================================================================================================================
+#1075
+Table: Project
+
++-------------+---------+
+| Column Name | Type    |
++-------------+---------+
+| project_id  | int     |
+| employee_id | int     |
++-------------+---------+
+(project_id, employee_id) is the primary key of this table.
+employee_id is a foreign key to Employee table.
+Table: Employee
+
++------------------+---------+
+| Column Name      | Type    |
++------------------+---------+
+| employee_id      | int     |
+| name             | varchar |
+| experience_years | int     |
++------------------+---------+
+employee_id is the primary key of this table.
+ 
+
+Write an SQL query that reports the average experience years of all the employees for each project, rounded to 2 digits.
+
+The query result format is in the following example:
+
+Project table:
++-------------+-------------+
+| project_id  | employee_id |
++-------------+-------------+
+| 1           | 1           |
+| 1           | 2           |
+| 1           | 3           |
+| 2           | 1           |
+| 2           | 4           |
++-------------+-------------+
+
+Employee table:
++-------------+--------+------------------+
+| employee_id | name   | experience_years |
++-------------+--------+------------------+
+| 1           | Khaled | 3                |
+| 2           | Ali    | 2                |
+| 3           | John   | 1                |
+| 4           | Doe    | 2                |
++-------------+--------+------------------+
+
+Result table:
++-------------+---------------+
+| project_id  | average_years |
++-------------+---------------+
+| 1           | 2.00          |
+| 2           | 2.50          |
++-------------+---------------+
+The average experience years for the first project is (3 + 2 + 1) / 3 = 2.00 and for the second project is (3 + 2) / 2 = 2.50
+==========================================================================================================================================
+#1076
+Table: Project
+
++-------------+---------+
+| Column Name | Type    |
++-------------+---------+
+| project_id  | int     |
+| employee_id | int     |
++-------------+---------+
+(project_id, employee_id) is the primary key of this table.
+employee_id is a foreign key to Employee table.
+Table: Employee
+
++------------------+---------+
+| Column Name      | Type    |
++------------------+---------+
+| employee_id      | int     |
+| name             | varchar |
+| experience_years | int     |
++------------------+---------+
+employee_id is the primary key of this table.
+ 
+
+Write an SQL query that reports all the projects that have the most employees.
+
+The query result format is in the following example:
+
+Project table:
++-------------+-------------+
+| project_id  | employee_id |
++-------------+-------------+
+| 1           | 1           |
+| 1           | 2           |
+| 1           | 3           |
+| 2           | 1           |
+| 2           | 4           |
++-------------+-------------+
+
+Employee table:
++-------------+--------+------------------+
+| employee_id | name   | experience_years |
++-------------+--------+------------------+
+| 1           | Khaled | 3                |
+| 2           | Ali    | 2                |
+| 3           | John   | 1                |
+| 4           | Doe    | 2                |
++-------------+--------+------------------+
+
+Result table:
++-------------+
+| project_id  |
++-------------+
+| 1           |
++-------------+
+The first project has 3 employees while the second one has 2.
+==========================================================================================================================================
+#1077
+Table: Project
+
++-------------+---------+
+| Column Name | Type    |
++-------------+---------+
+| project_id  | int     |
+| employee_id | int     |
++-------------+---------+
+(project_id, employee_id) is the primary key of this table.
+employee_id is a foreign key to Employee table.
+Table: Employee
+
++------------------+---------+
+| Column Name      | Type    |
++------------------+---------+
+| employee_id      | int     |
+| name             | varchar |
+| experience_years | int     |
++------------------+---------+
+employee_id is the primary key of this table.
+ 
+
+Write an SQL query that reports the most experienced employees in each project. In case of a tie, report all employees with the maximum number of experience years.
+
+The query result format is in the following example:
+
+Project table:
++-------------+-------------+
+| project_id  | employee_id |
++-------------+-------------+
+| 1           | 1           |
+| 1           | 2           |
+| 1           | 3           |
+| 2           | 1           |
+| 2           | 4           |
++-------------+-------------+
+
+Employee table:
++-------------+--------+------------------+
+| employee_id | name   | experience_years |
++-------------+--------+------------------+
+| 1           | Khaled | 3                |
+| 2           | Ali    | 2                |
+| 3           | John   | 3                |
+| 4           | Doe    | 2                |
++-------------+--------+------------------+
+
+Result table:
++-------------+---------------+
+| project_id  | employee_id   |
++-------------+---------------+
+| 1           | 1             |
+| 1           | 3             |
+| 2           | 1             |
++-------------+---------------+
+Both employees with id 1 and 3 have the most experience among the employees of the first project. For the second project, the employee with id 1 has the most experience.
+==========================================================================================================================================
+#1097
+Table: Activity
+
++--------------+---------+
+| Column Name  | Type    |
++--------------+---------+
+| player_id    | int     |
+| device_id    | int     |
+| event_date   | date    |
+| games_played | int     |
++--------------+---------+
+(player_id, event_date) is the primary key of this table.
+This table shows the activity of players of some game.
+Each row is a record of a player who logged in and played a number of games (possibly 0) before logging out on some day using some device.
+ 
+
+We define the install date of a player to be the first login day of that player.
+
+We also define day 1 retention of some date X to be the number of players whose install date is X and they logged back in on the day right after X, divided by the number of players whose install date is X, rounded to 2 decimal places.
+
+Write an SQL query that reports for each install date, the number of players that installed the game on that day and the day 1 retention.
+
+The query result format is in the following example:
+
+Activity table:
++-----------+-----------+------------+--------------+
+| player_id | device_id | event_date | games_played |
++-----------+-----------+------------+--------------+
+| 1         | 2         | 2016-03-01 | 5            |
+| 1         | 2         | 2016-03-02 | 6            |
+| 2         | 3         | 2017-06-25 | 1            |
+| 3         | 1         | 2016-03-01 | 0            |
+| 3         | 4         | 2016-07-03 | 5            |
++-----------+-----------+------------+--------------+
+
+Result table:
++------------+----------+----------------+
+| install_dt | installs | Day1_retention |
++------------+----------+----------------+
+| 2016-03-01 | 2        | 0.50           |
+| 2017-06-25 | 1        | 0.00           |
++------------+----------+----------------+
+Player 1 and 3 installed the game on 2016-03-01 but only player 1 logged back in on 2016-03-02 so the day 1 retention of 2016-03-01 is 1 / 2 = 0.50
+Player 2 installed the game on 2017-06-25 but didn't log back in on 2017-06-26 so the day 1 retention of 2017-06-25 is 0 / 1 = 0.00
+==========================================================================================================================================
+#1098
+Table: Books
+
++----------------+---------+
+| Column Name    | Type    |
++----------------+---------+
+| book_id        | int     |
+| name           | varchar |
+| available_from | date    |
++----------------+---------+
+book_id is the primary key of this table.
+Table: Orders
+
++----------------+---------+
+| Column Name    | Type    |
++----------------+---------+
+| order_id       | int     |
+| book_id        | int     |
+| quantity       | int     |
+| dispatch_date  | date    |
++----------------+---------+
+order_id is the primary key of this table.
+book_id is a foreign key to the Books table.
+ 
+
+Write an SQL query that reports the books that have sold less than 10 copies in the last year, excluding books that have been available for less than 1 month from today. Assume today is 2019-06-23.
+
+The query result format is in the following example:
+
+Books table:
++---------+--------------------+----------------+
+| book_id | name               | available_from |
++---------+--------------------+----------------+
+| 1       | "Kalila And Demna" | 2010-01-01     |
+| 2       | "28 Letters"       | 2012-05-12     |
+| 3       | "The Hobbit"       | 2019-06-10     |
+| 4       | "13 Reasons Why"   | 2019-06-01     |
+| 5       | "The Hunger Games" | 2008-09-21     |
++---------+--------------------+----------------+
+
+Orders table:
++----------+---------+----------+---------------+
+| order_id | book_id | quantity | dispatch_date |
++----------+---------+----------+---------------+
+| 1        | 1       | 2        | 2018-07-26    |
+| 2        | 1       | 1        | 2018-11-05    |
+| 3        | 3       | 8        | 2019-06-11    |
+| 4        | 4       | 6        | 2019-06-05    |
+| 5        | 4       | 5        | 2019-06-20    |
+| 6        | 5       | 9        | 2009-02-02    |
+| 7        | 5       | 8        | 2010-04-13    |
++----------+---------+----------+---------------+
+
+Result table:
++-----------+--------------------+
+| book_id   | name               |
++-----------+--------------------+
+| 1         | "Kalila And Demna" |
+| 2         | "28 Letters"       |
+| 5         | "The Hunger Games" |
++-----------+--------------------+
+==========================================================================================================================================
+#1107
+Table: Traffic
+
++---------------+---------+
+| Column Name   | Type    |
++---------------+---------+
+| user_id       | int     |
+| activity      | enum    |
+| activity_date | date    |
++---------------+---------+
+There is no primary key for this table, it may have duplicate rows.
+The activity column is an ENUM type of ('login', 'logout', 'jobs', 'groups', 'homepage').
+ 
+
+Write an SQL query that reports for every date within at most 90 days from today, the number of users that logged in for the first time on that date. Assume today is 2019-06-30.
+
+The query result format is in the following example:
+
+Traffic table:
++---------+----------+---------------+
+| user_id | activity | activity_date |
++---------+----------+---------------+
+| 1       | login    | 2019-05-01    |
+| 1       | homepage | 2019-05-01    |
+| 1       | logout   | 2019-05-01    |
+| 2       | login    | 2019-06-21    |
+| 2       | logout   | 2019-06-21    |
+| 3       | login    | 2019-01-01    |
+| 3       | jobs     | 2019-01-01    |
+| 3       | logout   | 2019-01-01    |
+| 4       | login    | 2019-06-21    |
+| 4       | groups   | 2019-06-21    |
+| 4       | logout   | 2019-06-21    |
+| 5       | login    | 2019-03-01    |
+| 5       | logout   | 2019-03-01    |
+| 5       | login    | 2019-06-21    |
+| 5       | logout   | 2019-06-21    |
++---------+----------+---------------+
+
+Result table:
++------------+-------------+
+| login_date | user_count  |
++------------+-------------+
+| 2019-05-01 | 1           |
+| 2019-06-21 | 2           |
++------------+-------------+
+Note that we only care about dates with non zero user count.
+The user with id 5 first logged in on 2019-03-01 so he's not counted on 2019-06-21.
+==========================================================================================================================================
+#1112
+Table: Enrollments
+
++---------------+---------+
+| Column Name   | Type    |
++---------------+---------+
+| student_id    | int     |
+| course_id     | int     |
+| grade         | int     |
++---------------+---------+
+(student_id, course_id) is the primary key of this table.
+
+Write a SQL query to find the highest grade with its corresponding course for each student. In case of a tie, you should find the course with the smallest course_id. The output must be sorted by increasing student_id.
+
+The query result format is in the following example:
+
+Enrollments table:
++------------+-------------------+
+| student_id | course_id | grade |
++------------+-----------+-------+
+| 2          | 2         | 95    |
+| 2          | 3         | 95    |
+| 1          | 1         | 90    |
+| 1          | 2         | 99    |
+| 3          | 1         | 80    |
+| 3          | 2         | 75    |
+| 3          | 3         | 82    |
++------------+-----------+-------+
+
+Result table:
++------------+-------------------+
+| student_id | course_id | grade |
++------------+-----------+-------+
+| 1          | 2         | 99    |
+| 2          | 2         | 95    |
+| 3          | 3         | 82    |
++------------+-----------+-------+
+==========================================================================================================================================
